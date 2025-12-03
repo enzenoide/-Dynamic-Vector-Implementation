@@ -1,5 +1,5 @@
 # Adicionar subdiretório de testes para a implementação com array
-add_subdirectory(tests_array)
+add_subdirectory(tests_array_back)
 
 # Adicionar subdiretório de testes para a implementação com arralinked list
 add_subdirectory(tests_linked)
