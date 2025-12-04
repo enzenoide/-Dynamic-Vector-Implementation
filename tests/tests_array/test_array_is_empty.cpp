@@ -1,4 +1,4 @@
-#include "vector-array.hpp"
+#include "../../include/vector-lib/vector-array.hpp"
 #include <cassert>
 int main(int argc, char *argv[]) {
     vector_array v;

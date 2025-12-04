@@ -24,7 +24,7 @@ public:
         }
     }
     unsigned int size() { // Retorna a quantidade de elementos armazenados
-        int i = 0;
+        unsigned int i = 0;
         if(is_empty()){
             return 0;
         }
@@ -38,28 +38,46 @@ public:
         return i;
     }
     unsigned int capacity() { // Retorna o espaço
-        return 0;
+        return size();
     } // reservado para armazenar os elementos
     double percent_occupied() { // Retorna um valor entre 0.0 a 1.0
-        return 0;               // com o percentual da memória usada.
+        return size()/size();               // com o percentual da memória usada.
     }
     bool insert_at(unsigned int index, int value) { // Insere elemento no índice index
         int_node* current = head;
         int_node *new_node = new int_node;
-        if(index < 0 || index > size_){
+        new_node -> value = value;
+        if(index > size_){
             return false;
         }
-        for(int i = 0; i < index; ++i){
+        if(size_ == 0){
+            head = new_node;
+            tail = new_node;
+            new_node -> prev = nullptr;
+            new_node -> next = nullptr;
+        }
+        else if(index == 0){
+            new_node -> prev = nullptr;
+            new_node -> next = head;
+            head -> prev = new_node;
+            head = new_node;
+        }
+        else if(index == size_){
+            new_node -> next = nullptr;
+            new_node -> prev = tail;
+            tail -> next = new_node;
+            tail = new_node;
+        }
+        else{
+        
+        for(unsigned int i = 0; i < index - 1; ++i){
             current = current -> next;
         }
-        if(this -> head == this -> tail){
-
+        new_node -> prev = current;
+        new_node -> next = current -> next;
+        current -> next -> prev = new_node;
+        current -> next = new_node;
         }
-        new_node -> prev = current -> prev; // o prev do new_node aponta para o prev do atual
-        new_node -> next = current -> next; // o next do new_node aponta para o next do current
-        current -> prev -> next = new_node; // o next do prev do current aponta para o new_node
-        current -> prev = new_node; // o prev do current aponta para o new_node
-
         size_++;
         return true;
     }
@@ -115,7 +133,7 @@ public:
     }
     bool pop_back() { // Remove um elemento do ``final'' do vetor
         if(is_empty()){
-            return;
+            return false;
         }
         if(this -> head == this -> tail){
             delete this -> head;
@@ -128,7 +146,7 @@ public:
     }
     bool pop_front() { // Remove um elemento do ``início'' do vetor
         if(is_empty()){
-            return;
+            return false;
         }
         if(this -> head == this -> tail){
             delete this -> head;
@@ -138,6 +156,7 @@ public:
         this -> head = this -> head -> next;
         delete this -> head -> prev;
         this -> head -> prev = nullptr;
+        return true;
     }
     int back() { // Retorna o elemento do ``final'' do vetor
         if(is_empty()){

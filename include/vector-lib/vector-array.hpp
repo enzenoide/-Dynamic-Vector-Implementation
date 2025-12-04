@@ -7,7 +7,7 @@ private:
     void increase_capacity() {
         this -> capacity_ += this -> increase_size_; // para aumentar a capacidade, somar a capacity cm o increase_size
         int *new_data = new int[this -> capacity_]; // alocar um novo array na memoria com o novo valor de capacity
-        for(int i = 0; i < this -> size_; ++i){
+        for(unsigned int i = 0; i < this -> size_; ++i){
             new_data[i] = data[i]; // copiar o array antigo no array novo
         }
         delete [] this -> data; // deletar o array antigo
@@ -40,7 +40,7 @@ public:
         if(this -> size_ == capacity_){
             increase_capacity();
         }
-        for(int i = this -> size_; i > index; --i){
+        for(unsigned int i = this -> size_; i > index; --i){
             data[i] = data[i-1];
         }
         data[index] = value;
@@ -51,7 +51,7 @@ public:
         if(index >= this -> size_){
             return false;
         }
-        for(int i = index; i < this -> size_ - 1; ++i){
+        for(unsigned int i = index; i < this -> size_ - 1; ++i){
             data[i] = data[i+1];
         }
         this -> size_--;
@@ -61,7 +61,7 @@ public:
             }
             this -> capacity_ /= 2;
             int *new_data = new int[this -> capacity_];
-            for(int i = 0; i < this -> size_; ++i ){
+            for(unsigned int i = 0; i < this -> size_; ++i ){
                 new_data[i] = data[i];
             }
             delete[] data;
@@ -92,7 +92,7 @@ public:
         this -> size_ = 0;
     }
     void push_back(int value) { // Adiciona um elemento no ``final'' do vetor
-        if(this -> size_ == this -> capacity_){
+        if(this -> size_ >= this -> capacity_){
             increase_capacity();
         }
         data[this -> size_++] = value;
@@ -133,7 +133,7 @@ public:
         return remove_at(index);
     }
     int find(int value) {        // Retorna o índice de value, −1 caso value não esteja presente
-        for(int i = 0; i < this -> size_; ++i){
+        for(unsigned int i = 0; i < this -> size_; ++i){
             if(data[i] == value){
                 return i;
             }
@@ -145,7 +145,7 @@ public:
             return 0;
         }
         int count = 0;                // Retorna 0 se value não estiver presente
-        for(int i = 0; i < this -> size_; ++i){
+        for(unsigned int i = 0; i < this -> size_; ++i){
             if(data[i] == value){
                 count++;
             }
@@ -157,7 +157,7 @@ public:
         if(this -> size_ == 0){
             return 0;
         }
-        for(int i = 0; i < this -> size_; ++i){
+        for(unsigned int i = 0; i < this -> size_; ++i){
             sum += data[i];
         }
         return sum;
@@ -169,8 +169,8 @@ public:
         }
         return removed; // retornar a variavel
     }
-    bool remove_range(int a, int b){
-        for(int i = a; i < b;++i){
+    bool remove_range(unsigned int a, unsigned int b){
+        for(unsigned int i = a; i < b;++i){
             remove(data[i]);
         }
         return true;
