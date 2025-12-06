@@ -85,7 +85,7 @@ public:
     }
     bool remove_at(unsigned int index) { // Remove elemento do índice index
         int_node *to_delete = head;
-        if(index > size_ || size_ == 0){
+        if(index >= size_ || size_ == 0){
             return false;
         }
         for(unsigned i = 0; i < index; ++i){
@@ -217,7 +217,13 @@ public:
         return this -> head -> value;
     }
     bool remove(int value) { // Remove value do vetor caso esteja presente
-        return false;
+        int index = find(value);
+        if(index == -1){
+            return false;
+        }
+        else{
+            return remove_at(index);
+        }
     }
     int find(int value) { // Retorna o índice de value, −1 caso value não esteja presente
         int i = 0;
@@ -225,16 +231,12 @@ public:
         if(is_empty()){
             return -1;
         }
-        if(this -> head == this -> tail){
-            return 0;
-        }
         while(current != nullptr){
             if(current -> value == value){
                 return i;
             }
-            else{
-                ++i;
-            }
+            current = current -> next;
+            i++;
         }
         return -1;
     }
@@ -268,5 +270,58 @@ public:
         }
         return ans;
     }
+    bool remove_all(int value){
+        int_node *to_remove = nullptr;
+        int_node *current = head;
+        bool removed = false;
+        if(is_empty()){
+            return false;
+        }
+        while(current != nullptr){
+            if(current -> value == value){ // se o valor for o mesmo
+                removed = true; // removed = true
+                to_remove = current; // to_remove aponta para o current
+                current = current -> next; // atualiza o current para poder deletar o to_remove
+                if(to_remove -> prev != nullptr){ // se o to_remove tiver prev, quer dizer que ele não é a head
+                    to_remove -> prev -> next = to_remove -> next; // o next do anterior do to_remove aponta para o next do to_remove
+                }
+                else{
+                    this -> head = to_remove ->  next; // se não for diferente de nullptr, o head aponta para o next do to_remove
+                }
+                if(to_remove ->  next != nullptr){ // se o to_remove tiver next, ele não está na tail
+                    to_remove -> next -> prev = to_remove -> prev; // o next do prev do to_remove aponta para o to_remove prev
+                }
+                else{
+                    this -> tail = to_remove -> prev; // se não for diferente de nullptr, o to_remove -> prev vira o tail
+                }
+                delete to_remove; // deleta o to_remove
+                this -> size_--; // o size decrementa
+            }
+            else{
+                current = current -> next; // o ELSE do primeiro IF, se o valor não for igual, o current atualiza para o proximo
+            }
+        }
+        return removed;
+        
+    }
+    bool remove_range(unsigned int a, unsigned int b){
+        if((unsigned int)a >= size_ || a >= b){
+            return false;
+        }
+        if((unsigned int)b > size_){
+            b = size_;
+        }
+        unsigned int count = (unsigned int)b - (unsigned int)a; // Variável count para saber quantos elementos vão ser removidos
+        for(unsigned int i = 0; i < count; ++i){
+            if(!remove_at((unsigned int)a)){ // quando remove at retornar false, break. 
+                                //O parametro de remove_at nunca muda porque dentro de remove_at todos os elementos deslocam para a esquerda, como um deslizamento.
+                break;
+            }
+        }
+        return true;
+    }
+        
 };
+
+
 #endif // __VECTOR_LINKED_IFRN__

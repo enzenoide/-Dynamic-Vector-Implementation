@@ -167,12 +167,19 @@ public:
             removed = true; //
         }
         return removed; // retornar a variavel
+        // PROBLEMA: O(N²)
     }
     bool remove_range(unsigned int a, unsigned int b){
-        for(unsigned int i = a; i < b;++i){
-            remove(data[i]);
+        if(a >= size_ || a >= b){
+            return false;
         }
+        unsigned int count = b - a; // Variável count para saber quantos elementos vão ser removidos
+        for(unsigned int i = a; i < size_ - count; ++i){ // i começa em a e vai até o tamanho menos a quantidade de elementos q vão ser removidos
+            data[i] = data[i + count]; // data[i] primeiro indice; data[i + count] pula os outros indices e chega nos que não foram removidos
+        }
+        this -> size_ -= count;
         return true;
     }
 };
+
 #endif // __VECTOR_LIST_IFRN__
