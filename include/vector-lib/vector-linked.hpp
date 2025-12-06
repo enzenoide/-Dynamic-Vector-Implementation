@@ -145,24 +145,30 @@ public:
 
         if(is_empty()){ // se a lista n tiver head o head aponta para o new_node
             this -> head = new_node;
+            this -> tail = new_node;
         }
         else{ // se não
             this -> tail -> next = new_node; // o next do tail aponta para o new_node
+            this -> tail = new_node; // o tail agora aponta para o new_node
         }
-        this -> tail = new_node; // o tail agora aponta para o new_node
+        size_++;
     }
     void push_front(int value) { // Adiciona um elemento no ``início'' do vetor
         int_node *new_node = new int_node;
         new_node -> value = value;
         new_node -> next = this -> head;
         new_node -> prev = nullptr;
-        if(this -> tail == nullptr){
+        if(is_empty()){
+            new_node -> next = nullptr;
             this -> tail = new_node;
+            this -> head = new_node;
         }
         else{
             this -> head -> prev = new_node;
+            this -> head = new_node;
         }
-        this -> head = new_node;
+        size_++;
+        
     }
     bool pop_back() { // Remove um elemento do ``final'' do vetor
         int_node *to_delete = tail;

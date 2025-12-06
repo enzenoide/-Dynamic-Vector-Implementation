@@ -3,9 +3,9 @@
 class vector_array {
 private:
     int *data;
-    unsigned int size_, capacity_,increase_size_; // cada vector vai possuir um atributo size, capacity e increase_size
-    void increase_capacity() {
-        this -> capacity_ += this -> increase_size_; // para aumentar a capacidade, somar a capacity cm o increase_size
+    unsigned int size_, capacity_; // cada vector vai possuir um atributo size, capacity e increase_size
+    void increase_capacity() {// OBS: TIREI O INCREASE_SIZE, PQ NÃO PRECISARIA JÁ QUE A LISTA DOBRA,SERIA DESNECESSARIO
+        this -> capacity_ *= 2; // para aumentar a capacidade, somar a capacity cm o increase_size
         int *new_data = new int[this -> capacity_]; // alocar um novo array na memoria com o novo valor de capacity
         for(unsigned int i = 0; i < this -> size_; ++i){
             new_data[i] = data[i]; // copiar o array antigo no array novo
@@ -17,9 +17,8 @@ private:
 public:
     vector_array() {
         this -> size_ = 0;
-        this -> capacity_ = 100;
-        this -> increase_size_ = 100;
-        this -> data = new int[100];         
+        this -> capacity_ = 8;
+        this -> data = new int[capacity_];         
     }
     ~vector_array() { // Destrutor
         delete [] this -> data;

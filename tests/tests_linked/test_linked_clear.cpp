@@ -1,4 +1,4 @@
-#include "vector-linked.hpp"
+#include "../../include/vector-lib/vector-linked.hpp"
 #include <cassert>
 
 int main(int argc, char *argv[]) {
