@@ -30,15 +30,3 @@ The library is **header-only**, implemented in **C++23**.
 * **Removal:** `pop_back`, `pop_front`, `remove_at`, `remove(value)`, `clear`.
 * **Search & Access:** `get_at`, `find`, `front`, `back`.
 * **Analysis:** `size`, `capacity`, `count`, `sum`.
-
-## 🧪 Testing & Quality
-* **Unit Tests:** Comprehensive suite using **ctest**.
-* **Memory Analysis:** Verified with **Valgrind** to ensure zero memory leaks.
-* **Environment:** Developed using **Dev Containers** (Docker).
-
----
-
-## 🚀 How to Build
-1. **Configure:** `mkdir build && cd build && cmake ..`
-2. **Compile:** `cmake --build .`
-3. **Test:** `ctest --output-on-failure`
