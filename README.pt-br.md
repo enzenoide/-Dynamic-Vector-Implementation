@@ -31,14 +31,4 @@ Biblioteca do tipo *header-only*, implementada em **C++23**.
 * **Busca:** `get_at`, `find`, `front`, `back`.
 * **Análise:** `size`, `capacity`, `count`, `sum`.
 
-## 🧪 Qualidade
-* **Testes:** Suite automatizada com **ctest**.
-* **Memória:** Validado com **Valgrind** (zero leaks).
-* **Ambiente:** Uso de **Dev Containers** (Docker).
 
----
-
-## 🚀 Como Compilar
-1. **Configurar:** `mkdir build && cd build && cmake ..`
-2. **Compilar:** `cmake --build .`
-3. **Testar:** `ctest --output-on-failure`
